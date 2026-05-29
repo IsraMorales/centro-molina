@@ -59,6 +59,6 @@ export default async function handler(req, res) {
 
   } catch (err) {
     console.error('Error en /api/analizar:', err);
-    return res.status(500).json({ error: 'Error interno del servidor' });
+    return res.status(500).json({ error: err.message, stack: err.stack });
   }
 }
