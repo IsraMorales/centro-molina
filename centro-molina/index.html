@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Copiado MOLINA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-area">
+      <img src="logo_white_background.png" alt="Centro de Copiado MOLINA" class="logo-img" />
+    </div>
+    <p class="tagline">Impresión profesional · Calidad garantizada · Precio justo</p>
+  </header>
+
+  <!-- SERVICIOS -->
+  <section class="servicios-section">
+    <p class="section-label">Lo que ofrecemos</p>
+    <h2 class="section-title">Nuestros servicios</h2>
+    <div class="servicios-grid">
+
+      <div class="servicio-card">
+        <div class="servicio-icon">🖨️</div>
+        <div class="servicio-nombre">Copias e Impresiones</div>
+        <div class="servicio-desc">BLANCO y NEGRO, COLOR. Tamaños Carta, Oficio y Doble Carta. Precios por volumen.</div>
+      </div>
+
+      <div class="servicio-card">
+        <div class="servicio-icon">📚</div>
+        <div class="servicio-nombre">Papelería</div>
+        <div class="servicio-desc">Artículos escolares y de oficina. Todo lo que necesitas en un solo lugar.</div>
+      </div>
+
+      <div class="servicio-card">
+        <div class="servicio-icon">⚡</div>
+        <div class="servicio-nombre">Recargas Electrónicas</div>
+        <div class="servicio-desc">Recargas para todos los operadores. Rápido, seguro y sin complicaciones.</div>
+      </div>
+
+      <div class="servicio-card">
+        <div class="servicio-icon">📱</div>
+        <div class="servicio-nombre">Asesorios para Telefonos</div>
+        <div class="servicio-desc">Cargadores, audífonos inalámbricos y alámbricos, cables de diferentes entradas, memorias USB y memorias MicroSD.</div>
+      </div>
+
+      <div class="servicio-card">
+        <div class="servicio-icon">📄</div>
+        <div class="servicio-nombre">Gestión e Impresión de Trámites.</div>
+        <div class="servicio-desc">Actas de nacimiento en línea, Constancia de Situación Fiscal del SAT y más trámites de forma rápida y sencilla.</div></div>
+
+      <div class="servicio-card">
+        <div class="servicio-icon">🎁</div>
+        <div class="servicio-nombre">Bolsas de regalo y dulcería para toda ocasión.</div>
+        <div class="servicio-desc">Obtén tu bolsa de regalo y elige el dulce de tu preferencia.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HERO COTIZADOR -->
+  <section class="cotizador-section">
+    <p class="section-label">Herramienta en línea</p>
+    <h2 class="section-title">Cotiza tu trabajo<br>al instante</h2>
+    <p class="section-desc">Obtén el precio de tu trabajo en segundos. Sin esperas, sin llamadas.</p>
+    <button class="btn-abrir-modal" onclick="abrirModal()">Calcular cotización →</button>
+  </section>
+
+  <!-- MODAL COTIZADOR -->
+  <div class="modal-overlay" id="modalOverlay" onclick="cerrarModalFuera(event)">
+    <div class="modal" id="modal">
+
+      <div class="modal-header">
+        <div>
+          <p class="modal-label">Cotizador</p>
+          <h3 class="modal-titulo">¿Cuánto cuesta tu trabajo?</h3>
+        </div>
+        <button class="btn-cerrar" onclick="cerrarModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="pasos">
+          <div class="paso activo" id="paso1"><div class="paso-num">1</div><div class="paso-label">Servicio</div></div>
+          <div class="paso" id="paso2"><div class="paso-num">2</div><div class="paso-label">Tamaño</div></div>
+          <div class="paso" id="paso3"><div class="paso-num">3</div><div class="paso-label">Cantidad</div></div>
+          <div class="paso" id="paso4"><div class="paso-num">4</div><div class="paso-label">Total</div></div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Tipo de servicio</label>
+            <div class="select-wrapper">
+              <select id="servicio" onchange="cambiarServicio()">
+                <option value="">— Selecciona —</option>
+                <option value="copia_bn">Copias en blanco y negro</option>
+                <option value="impresion_bn">Impresión en blanco y negro</option>
+                <option value="impresion_color">Impresión a color</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Tamaño de papel</label>
+            <div class="select-wrapper">
+              <select id="tamano" onchange="actualizar()">
+                <option value="">— Selecciona —</option>
+                <option value="carta">Carta</option>
+                <option value="oficio">Oficio</option>
+                <option value="doble_carta">Doble carta</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group full" id="grupo-cantidad">
+            <label>Número de hojas</label>
+            <input type="number" id="cantidad" min="1" placeholder="Ej. 100" oninput="actualizar()" />
+            <span class="error-msg" id="error-cantidad">Por favor ingresa una cantidad válida (mínimo 1).</span>
+          </div>
+        </div>
+
+        <!-- ZONA CARGA ARCHIVO COLOR -->
+        <div class="color-upload-zone" id="color-upload-zone" style="display:none">
+          <div class="upload-box" id="upload-box">
+            <div class="upload-icon">📂</div>
+            <div class="upload-titulo">Sube tu archivo</div>
+            <div class="upload-desc">PDF o Word (.docx) · Máx. 20 MB</div>
+            <input type="file" id="archivo-color" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="archivoSeleccionado(event)" />
+            <button class="btn-upload" onclick="document.getElementById('archivo-color').click()">Seleccionar archivo</button>
+          </div>
+          <div class="archivo-info" id="archivo-info" style="display:none">
+            <div class="archivo-nombre" id="archivo-nombre">—</div>
+            <button class="btn-quitar" onclick="quitarArchivo()">✕ Quitar</button>
+          </div>
+          <span class="error-msg" id="error-archivo">Por favor selecciona un archivo PDF o Word.</span>
+          <div class="nota-pdf">
+            <span class="nota-icono">💡</span>
+            <span><strong>Para mayor precisión sube tu archivo en PDF.</strong> Los archivos Word (.docx) generan una estimación aproximada, ya que no es posible analizar visualmente su contenido de color. Puedes convertir tu Word a PDF desde <em>Archivo → Guardar como → PDF</em>.</span>
+          </div>
+        </div>
+
+        <button class="btn-cotizar" id="btn-cotizar" onclick="cotizar()">Calcular →</button>
+
+        <!-- ESTADO ANÁLISIS IA -->
+        <div class="analizando-estado" id="analizando-estado" style="display:none">
+          <div class="spinner"></div>
+          <div class="analizando-texto">Analizando tu archivo con IA...</div>
+        </div>
+
+        <div class="resultado-card" id="resultado">
+          <div class="resultado-header">
+            <h3>Tu cotización</h3>
+            <span class="badge">Estimado</span>
+          </div>
+          <div class="resultado-body">
+            <div class="detalle-linea"><span>Servicio</span><strong id="res-servicio">—</strong></div>
+            <div class="detalle-linea"><span>Tamaño</span><strong id="res-tamano">—</strong></div>
+            <div class="detalle-linea"><span>Cantidad</span><strong id="res-cantidad">—</strong></div>
+            <div class="detalle-linea" id="linea-unitario"><span>Precio por hoja</span><strong id="res-unitario">—</strong></div>
+          </div>
+          <!-- DESGLOSE COLOR -->
+          <div class="desglose-color" id="desglose-color" style="display:none">
+            <div class="desglose-titulo">Desglose por página</div>
+            <div class="desglose-lista" id="desglose-lista"></div>
+          </div>
+          <div class="total-area">
+            <div>
+              <div class="total-label">Total estimado</div>
+              <div class="precio-unitario" id="res-rango">—</div>
+            </div>
+            <div class="total-precio" id="res-total">$0.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UBICACIÓN -->
+  <section class="ubicacion-section">
+    <p class="section-label">Encuéntranos</p>
+    <h2 class="section-title">Visítanos</h2>
+    <div class="ubicacion-grid">
+      <a class="info-card" href="https://www.google.com/maps?q=Av.+Ing.+Eduardo+Molina+353,+20+de+Noviembre,+Venustiano+Carranza,+15300+Ciudad+de+México,+CDMX" target="_blank">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-titulo">Dirección <span class="info-link-hint">— Toca para abrir mapa</span></div>
+          <div class="info-texto">
+            Eduardo Molina 353, Local A<br>
+            Col. 20 de Noviembre<br>
+            Venustiano Carranza, CDMX C.P. 15300
+          </div>
+        </div>
+      </a>
+      <div class="info-card">
+        <div class="info-icon">🕐</div>
+        <div>
+          <div class="info-titulo">Horario de atención</div>
+          <div class="info-texto">
+            Lunes a Viernes: 7:30 am – 7:00 pm<br>
+            Sábado: 10:00 am – 4:00 pm<br>
+            <span class="cerrado">Domingo: Cerrado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAPA -->
+    <div class="mapa-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.2324118004735!2d-99.11415128999465!3d19.44554394019317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f950102b0e9b%3A0x44e0e4feb0d2c400!2sAv.%20Ing.%20Eduardo%20Molina%20353%2C%2020%20de%20Noviembre%2C%20Venustiano%20Carranza%2C%2015300%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1778793117691!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 <span>Centro de Copiado MOLINA</span> · Todos los derechos reservados
+  </footer>
+
+  <!-- BOTÓN WHATSAPP FLOTANTE -->
+  <a class="btn-whatsapp" href="https://wa.me/5215511466283" target="_blank" title="Contáctanos por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="30" height="30" fill="white">
+      <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.463 2.02 7.752L0 32l8.469-2.002A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 0 1-6.784-1.858l-.486-.29-5.03 1.189 1.218-4.899-.317-.502A13.267 13.267 0 0 1 2.667 16C2.667 8.637 8.637 2.667 16 2.667S29.333 8.637 29.333 16 23.363 29.333 16 29.333zm7.27-9.77c-.398-.199-2.353-1.162-2.718-1.294-.365-.133-.631-.199-.897.199-.266.398-1.03 1.294-1.263 1.56-.232.265-.465.298-.863.1-.398-.2-1.681-.619-3.203-1.977-1.184-1.057-1.983-2.362-2.215-2.76-.232-.398-.025-.613.174-.811.179-.178.398-.465.597-.697.2-.232.266-.398.399-.664.133-.265.066-.497-.033-.697-.1-.199-.897-2.162-1.229-2.96-.324-.778-.652-.673-.897-.685l-.764-.013c-.266 0-.697.1-1.063.497-.365.398-1.394 1.362-1.394 3.322s1.427 3.854 1.626 4.12c.199.265 2.808 4.287 6.805 6.014.951.411 1.694.656 2.272.84.955.303 1.824.26 2.511.158.766-.114 2.353-.962 2.685-1.89.332-.928.332-1.724.232-1.89-.099-.166-.365-.265-.763-.464z"/>
+    </svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
