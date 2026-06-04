@@ -328,4 +328,35 @@ async function cotizar() {
   window.open(url, '_blank');
 }
 
+function enviarCotizacionWhatsApp() {
+  const servicio  = document.getElementById('res-servicio').textContent;
+  const tamano    = document.getElementById('res-tamano').textContent;
+  const cantidad  = document.getElementById('res-cantidad').textContent;
+  const total     = document.getElementById('res-total').textContent;
+  const esColor   = document.getElementById('desglose-color').style.display !== 'none';
+
+  let mensaje = `Hola! Me interesa realizar una impresión 🖨️\n\n`;
+  mensaje += `📄 *Servicio:* ${servicio}\n`;
+  mensaje += `📐 *Tamaño:* ${tamano}\n`;
+  mensaje += `📃 *Cantidad:* ${cantidad}\n`;
+
+  if (esColor) {
+    const items = document.querySelectorAll('.desglose-item');
+    mensaje += `\n*Desglose por página:*\n`;
+    items.forEach(item => {
+      const pagina = item.querySelector('.desglose-pagina').textContent;
+      const pct    = item.querySelector('.desglose-pct').textContent;
+      const precio = item.querySelector('.desglose-precio').textContent;
+      mensaje += `• ${pagina} - ${pct} - ${precio}\n`;
+    });
+  }
+
+  mensaje += `\n💰 *Total estimado: ${total}*\n`;
+  mensaje += `\n_(Adjunto mi archivo para imprimir)_`;
+
+  const telefono = '5215511466283';
+  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
+}
+
 }
