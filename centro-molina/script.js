@@ -296,8 +296,9 @@ async function cotizar() {
 
   document.getElementById('paso4').classList.add('activo');
   resEl.classList.add('visible');
+}
 
-  function enviarCotizacionWhatsApp() {
+function enviarCotizacionWhatsApp() {
   const servicio  = document.getElementById('res-servicio').textContent;
   const tamano    = document.getElementById('res-tamano').textContent;
   const cantidad  = document.getElementById('res-cantidad').textContent;
