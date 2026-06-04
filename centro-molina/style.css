@@ -743,32 +743,3 @@ footer span { color: var(--acento); }
 
 .desglose-izq { display: flex; flex-direction: column; gap: 2px; }
 .desglose-ejemplo { font-size: 11px; color: rgba(245,240,232,0.35); font-style: italic; }
-
-/* WHATSAPP COTIZACIÓN */
-.whatsapp-cotizacion {
-  padding: 16px 22px;
-  border-top: 1px solid rgba(200,169,81,0.15);
-}
-
-.btn-whatsapp-cotizacion {
-  width: 100%;
-  padding: 14px;
-  background: #25d366;
-  color: white;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.btn-whatsapp-cotizacion:hover {
-  background: #1ebe5d;
-  transform: translateY(-2px);
-}
