@@ -16,12 +16,12 @@ const precios = {
 
 const preciosColor = {
   carta: [
-    { minPct: 1,  maxPct: 8,   precio: 3.50 },
-    { minPct: 9,  maxPct: 26,  precio: 4.00 },
-    { minPct: 27, maxPct: 50,  precio: 5.00 },
-    { minPct: 51, maxPct: 60,  precio: 6.00 },
-    { minPct: 61, maxPct: 75,  precio: 7.00 },
-    { minPct: 76, maxPct: 100, precio: 8.00 },
+    { minPct: 1,  maxPct: 10,  precio: 3.50, ejemplo: 'Logotipos pequeños, encabezados' },
+    { minPct: 11, maxPct: 35,  precio: 4.00, ejemplo: 'Documentos con gráficos o imágenes pequeñas' },
+    { minPct: 36, maxPct: 50,  precio: 5.00, ejemplo: 'Media página a color' },
+    { minPct: 51, maxPct: 60,  precio: 6.00, ejemplo: 'Varias imágenes o fondos importantes' },
+    { minPct: 61, maxPct: 75,  precio: 7.00, ejemplo: 'Varias imágenes o fondos importantes' },
+    { minPct: 76, maxPct: 100, precio: 8.00, ejemplo: 'Página casi totalmente a color o con fondo completo' },
   ],
   oficio: [
     { minPct: 1,  maxPct: 10,  precio: 4.00 },
@@ -131,9 +131,9 @@ function quitarArchivo() {
 function precioColorPorPct(tamano, pct) {
   const rangos = preciosColor[tamano];
   for (const r of rangos) {
-    if (pct >= r.minPct && pct <= r.maxPct) return r.precio;
+    if (pct >= r.minPct && pct <= r.maxPct) return { precio: r.precio, ejemplo: r.ejemplo || '' };
   }
-  return rangos[0].precio;
+  return { precio: rangos[0].precio, ejemplo: rangos[0].ejemplo || '' };
 }
 
 // ===========================
@@ -234,9 +234,9 @@ async function cotizar() {
 
       let totalGeneral = 0;
       const desglose = paginas.map(p => {
-        const precio = precioColorPorPct(tamano, p.pct);
+        const { precio, ejemplo } = precioColorPorPct(tamano, p.pct);
         totalGeneral += precio;
-        return { num: p.num, pct: p.pct, precio };
+        return { num: p.num, pct: p.pct, precio, ejemplo };
       });
 
       document.getElementById('res-servicio').textContent = nombresServicio[servicio];
@@ -247,7 +247,10 @@ async function cotizar() {
       const listaEl = document.getElementById('desglose-lista');
       listaEl.innerHTML = desglose.map(p => `
         <div class="desglose-item">
-          <span class="desglose-pagina">Página ${p.num}</span>
+          <div class="desglose-izq">
+            <span class="desglose-pagina">Página ${p.num}</span>
+            <span class="desglose-ejemplo">${p.ejemplo}</span>
+          </div>
           <span class="desglose-pct">${p.pct}% color</span>
           <span class="desglose-precio">${formatoMXN(p.precio)}</span>
         </div>
