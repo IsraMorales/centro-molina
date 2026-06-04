@@ -52,8 +52,7 @@ const nombresTamano = {
 };
 
 function formatoMXN(valor) {
-  const redondeado = Math.ceil(valor * 2) / 2;
-  return '$' + redondeado.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return valor.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
 }
 
 // ===========================
@@ -131,9 +130,9 @@ function quitarArchivo() {
 function precioColorPorPct(tamano, pct) {
   const rangos = preciosColor[tamano];
   for (const r of rangos) {
-    if (pct >= r.minPct && pct <= r.maxPct) return { precio: r.precio, ejemplo: r.ejemplo || '' };
+    if (pct >= r.minPct && pct <= r.maxPct) return r.precio;
   }
-  return { precio: rangos[0].precio, ejemplo: rangos[0].ejemplo || '' };
+  return rangos[0].precio;
 }
 
 // ===========================
@@ -234,9 +233,9 @@ async function cotizar() {
 
       let totalGeneral = 0;
       const desglose = paginas.map(p => {
-        const { precio, ejemplo } = precioColorPorPct(tamano, p.pct);
+        const precio = precioColorPorPct(tamano, p.pct);
         totalGeneral += precio;
-        return { num: p.num, pct: p.pct, precio, ejemplo };
+        return { num: p.num, pct: p.pct, precio };
       });
 
       document.getElementById('res-servicio').textContent = nombresServicio[servicio];
@@ -247,10 +246,7 @@ async function cotizar() {
       const listaEl = document.getElementById('desglose-lista');
       listaEl.innerHTML = desglose.map(p => `
         <div class="desglose-item">
-          <div class="desglose-izq">
-            <span class="desglose-pagina">Página ${p.num}</span>
-            <span class="desglose-ejemplo">${p.ejemplo}</span>
-          </div>
+          <span class="desglose-pagina">Página ${p.num}</span>
           <span class="desglose-pct">${p.pct}% color</span>
           <span class="desglose-precio">${formatoMXN(p.precio)}</span>
         </div>
@@ -300,4 +296,36 @@ async function cotizar() {
 
   document.getElementById('paso4').classList.add('activo');
   resEl.classList.add('visible');
+
+  function enviarCotizacionWhatsApp() {
+  const servicio  = document.getElementById('res-servicio').textContent;
+  const tamano    = document.getElementById('res-tamano').textContent;
+  const cantidad  = document.getElementById('res-cantidad').textContent;
+  const total     = document.getElementById('res-total').textContent;
+  const esColor   = document.getElementById('desglose-color').style.display !== 'none';
+
+  let mensaje = `Hola! Me interesa realizar una impresión 🖨️\n\n`;
+  mensaje += `📄 *Servicio:* ${servicio}\n`;
+  mensaje += `📐 *Tamaño:* ${tamano}\n`;
+  mensaje += `📃 *Cantidad:* ${cantidad}\n`;
+
+  if (esColor) {
+    const items = document.querySelectorAll('.desglose-item');
+    mensaje += `\n*Desglose por página:*\n`;
+    items.forEach(item => {
+      const pagina = item.querySelector('.desglose-pagina').textContent;
+      const pct    = item.querySelector('.desglose-pct').textContent;
+      const precio = item.querySelector('.desglose-precio').textContent;
+      mensaje += `• ${pagina} - ${pct} - ${precio}\n`;
+    });
+  }
+
+  mensaje += `\n💰 *Total estimado: ${total}*\n`;
+  mensaje += `\n_(Adjunto mi archivo para imprimir)_`;
+
+  const telefono = '5215511466283';
+  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
+}
+
 }
