@@ -327,5 +327,3 @@ async function cotizar() {
   const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, '_blank');
 }
-
-}
