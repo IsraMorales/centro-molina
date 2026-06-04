@@ -53,7 +53,7 @@ const nombresTamano = {
 
 function formatoMXN(valor) {
   const redondeado = Math.ceil(valor * 2) / 2;
-  return redondeado.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return '$' + redondeado.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 // ===========================
