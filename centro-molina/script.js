@@ -128,11 +128,14 @@ function quitarArchivo() {
 // PRECIO COLOR POR %
 // ===========================
 function precioColorPorPct(tamano, pct) {
+  // Si no tiene color, cobrar como blanco y negro
+  if (pct === 0) return { precio: 1.00, ejemplo: 'Solo blanco y negro' };
+  
   const rangos = preciosColor[tamano];
   for (const r of rangos) {
-    if (pct >= r.minPct && pct <= r.maxPct) return r.precio;
+    if (pct >= r.minPct && pct <= r.maxPct) return { precio: r.precio, ejemplo: r.ejemplo || '' };
   }
-  return rangos[0].precio;
+  return { precio: rangos[0].precio, ejemplo: rangos[0].ejemplo || '' };
 }
 
 // ===========================
