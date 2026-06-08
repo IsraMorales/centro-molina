@@ -236,9 +236,9 @@ async function cotizar() {
 
       let totalGeneral = 0;
       const desglose = paginas.map(p => {
-        const precio = precioColorPorPct(tamano, p.pct);
+        const { precio, ejemplo } = precioColorPorPct(tamano, p.pct);
         totalGeneral += precio;
-        return { num: p.num, pct: p.pct, precio };
+        return { num: p.num, pct: p.pct, precio, ejemplo };
       });
 
       document.getElementById('res-servicio').textContent = nombresServicio[servicio];
