@@ -741,34 +741,105 @@ footer span { color: var(--acento); }
 .nota-pdf strong { color: rgba(245,240,232,0.9); }
 .nota-pdf em { color: rgba(200,169,81,0.8); font-style: normal; }
 
-.desglose-izq { display: flex; flex-direction: column; gap: 2px; }
-.desglose-ejemplo { font-size: 11px; color: rgba(245,240,232,0.35); font-style: italic; }
-
-/* WHATSAPP COTIZACIÓN */
-.whatsapp-cotizacion {
-  padding: 16px 22px;
-  border-top: 1px solid rgba(200,169,81,0.15);
+/* ===========================
+   BREADCRUMB
+=========================== */
+.breadcrumb {
+  padding: 16px 40px;
+  font-size: 13px;
+  color: rgba(245,240,232,0.4);
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.btn-whatsapp-cotizacion {
-  width: 100%;
-  padding: 14px;
-  background: #25d366;
-  color: white;
-  font-family: 'DM Sans', sans-serif;
+.breadcrumb a {
+  color: var(--acento);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb span { margin: 0 6px; }
+
+/* ===========================
+   SERVICIO DETALLE
+=========================== */
+.servicio-detalle-section {
+  padding: 60px 40px 80px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.servicio-detalle-hero {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.servicio-detalle-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.servicio-detalle-desc {
+  font-size: 17px;
+  line-height: 1.8;
+  color: rgba(245,240,232,0.65);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.servicio-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(200,169,81,0.15);
+  border-radius: 16px;
+  padding: 32px 24px;
+  transition: border-color 0.3s, transform 0.3s, background 0.3s;
+}
+
+.feature-card:hover {
+  border-color: rgba(200,169,81,0.45);
+  background: rgba(200,169,81,0.05);
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.feature-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--blanco);
+}
+
+.feature-desc {
   font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: background 0.2s, transform 0.2s;
+  line-height: 1.7;
+  color: rgba(245,240,232,0.55);
 }
 
-.btn-whatsapp-cotizacion:hover {
-  background: #1ebe5d;
-  transform: translateY(-2px);
+/* TARJETAS CLICKEABLES */
+.servicio-card.clickeable {
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+@media (max-width: 700px) {
+  .servicio-features-grid { grid-template-columns: 1fr; }
+  .breadcrumb { padding: 16px 24px; }
+  .servicio-detalle-section { padding: 40px 24px 60px; }
+}
+
+@media (max-width: 480px) {
+  .servicio-features-grid { grid-template-columns: 1fr; }
 }
