@@ -52,7 +52,7 @@ const nombresTamano = {
 };
 
 function formatoMXN(valor) {
-  return valor.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
+  return valor.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
 
 // ===========================
@@ -287,7 +287,7 @@ async function cotizar() {
   document.getElementById('desglose-color').style.display = 'none';
 
   const precioUnitario = obtenerPrecio(servicio, tamano, cantidad);
-  const total = Math.round(precioUnitario * cantidad * 100) / 100;
+  const total = Math.round(precioUnitario * cantidad);
   const rangoTexto     = obtenerRangoTexto(servicio, tamano, cantidad);
 
   document.getElementById('res-servicio').textContent = nombresServicio[servicio];
