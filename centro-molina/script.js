@@ -287,7 +287,7 @@ async function cotizar() {
   document.getElementById('desglose-color').style.display = 'none';
 
   const precioUnitario = obtenerPrecio(servicio, tamano, cantidad);
-  const total          = precioUnitario * cantidad;
+  const total = Math.round(precioUnitario * cantidad * 100) / 100;
   const rangoTexto     = obtenerRangoTexto(servicio, tamano, cantidad);
 
   document.getElementById('res-servicio').textContent = nombresServicio[servicio];
@@ -325,7 +325,9 @@ function enviarCotizacionWhatsApp() {
   }
 
   mensaje += `\n💰 *Total estimado: ${total}*\n`;
-  mensaje += `\n_(Adjunto mi archivo para imprimir)_`;
+  if (servicio !== 'Copias blanco y negro') {
+  mensaje += `\n_📎 No olvides adjuntar tu archivo al enviar este mensaje_`;
+}
 
   const telefono = '5215511466283';
   const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
