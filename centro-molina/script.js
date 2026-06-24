@@ -308,7 +308,7 @@ function enviarCotizacionWhatsApp() {
   const total     = document.getElementById('res-total').textContent;
   const esColor   = document.getElementById('desglose-color').style.display !== 'none';
 
-  let mensaje = `Hola! Me interesa realizar una impresión 🖨️\n\n`;
+  let mensaje = `Hola, me interesa realizar un trabajo de:\n\n`;
   mensaje += `📄 *Servicio:* ${servicio}\n`;
   mensaje += `📐 *Tamaño:* ${tamano}\n`;
   mensaje += `📃 *Cantidad:* ${cantidad}\n`;
